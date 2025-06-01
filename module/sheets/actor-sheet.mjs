@@ -8,7 +8,7 @@ export class valorActorSheet extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["valor", "sheet", "actor"],
       template: "systems/valor/templates/actor/actor-sheet.html",
       width: 600,
@@ -33,7 +33,7 @@ export class valorActorSheet extends ActorSheet {
     const context = super.getData();
 
     // Use a safe clone of the actor data for further operations.
-    const actorData = this.actor.toObject(false);
+    const actorData = context.data;
 
     // Add the actor's data to context.system for easier access, as well as flags.
     context.system = actorData.system;
@@ -169,7 +169,7 @@ export class valorActorSheet extends ActorSheet {
     // Get the type of item to create.
     const type = header.dataset.type;
     // Grab any data associated with this control.
-    const data = duplicate(header.dataset);
+    const data = foundry.utils.duplicate(header.dataset);
     // Initialize a default name.
     const name = `New ${type.capitalize()}`;
     // Prepare the item object.

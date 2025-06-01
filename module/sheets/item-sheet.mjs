@@ -11,7 +11,7 @@ export class valorItemSheet extends ItemSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["valor", "sheet", "item"],
       width: 620,
       height: 480,
@@ -73,28 +73,28 @@ export class valorItemSheet extends ItemSheet {
    * @param context
    * @private
    */
-   _prepareTechniqueSheetData(context) {
-     const compendiumCores = [];
-     const compendiumMods = [];
-     const compendiumLimits = [];
+  _prepareTechniqueSheetData(context) {
+    const compendiumCores = [];
+    const compendiumMods = [];
+    const compendiumLimits = [];
 
-     let techCompendium = game.packs.get("valor.techniques");
+    let techCompendium = game.packs.get("valor.techniques");
 
-     for (let techComponent of techCompendium.index) {
-       if (techComponent.type === "core") {
-         compendiumCores.push(techComponent);
-       } else if (techComponent.type === "modifier") {
-         compendiumMods.push(techComponent);
-       } else if (techComponent.type === "limit") {
-         compendiumLimits.push(techComponent);
-       }
-     }
+    for (let techComponent of techCompendium.index) {
+      if (techComponent.type === "core") {
+        compendiumCores.push(techComponent);
+      } else if (techComponent.type === "modifier") {
+        compendiumMods.push(techComponent);
+      } else if (techComponent.type === "limit") {
+        compendiumLimits.push(techComponent);
+      }
+    }
 
 
-     context.compendiumCores = compendiumCores;
-     context.compendiumMods = compendiumMods;
-     context.compendiumLimits = compendiumLimits;
-   }
+    context.compendiumCores = compendiumCores;
+    context.compendiumMods = compendiumMods;
+    context.compendiumLimits = compendiumLimits;
+  }
 
 
 
