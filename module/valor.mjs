@@ -44,12 +44,14 @@ Hooks.once('init', async function() {
   CONFIG.Item.documentClass = valorItem;
   CONFIG.ActiveEffect.documentClass = valorActiveEffect;
   
-
+  // v13 implements Application2 api
+  const _Actors = (foundry.documents.collections) ? foundry.documents.collections.Actors : Actors;
+  const _Items = (foundry.documents.collections) ? foundry.documents.collections.Items : Items;
   // Register sheet application classes
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("valor", valorActorSheet, { makeDefault: true });
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("valor", valorItemSheet, { makeDefault: true });
+  _Actors.unregisterSheet("core", ActorSheet);
+  _Actors.registerSheet("valor", valorActorSheet, { makeDefault: true });
+  _Items.unregisterSheet("core", ItemSheet);
+  _Items.registerSheet("valor", valorItemSheet, { makeDefault: true });
   DocumentSheetConfig.registerSheet(ActiveEffect, 'valor', valorActiveEffectConfig, {makeDefault: true})
 
   //enable sockets
