@@ -3,11 +3,11 @@
   "name": "valor",
   "title": "Valor",
   "description": "The Valor system for FoundryVTT!",
-  "version": "1.0.0",
-  "manifestPlusVersion": "1.2.0",
+  "version": "1.0.1",
+  "manifestPlusVersion": "1.2.1",
   "compatibility": {
     "minimum": 11,
-    "verified": "11.299"
+    "verified": "13.344"
   },
   "author": "Daniel Letterman",
   "authors": [
@@ -56,8 +56,11 @@
       "path": "lang/en.json"
     }
   ],
-  "gridDistance": 1,
-  "gridUnits": "sq",
+  "grid": {
+    "distance": 1,
+    "units": "sq",
+    "diagonals": 4
+  },
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "stamina",
   "socket": true,
