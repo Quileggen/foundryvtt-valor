@@ -117,6 +117,13 @@ export async function _prepareTechniqueData(technique) {
     //process modifiers
     let effectiveModLevel = 0;
     for (const mod in technique.system.mods) {
+        //run modifier prep script
+        const modFn = new AsyncFunction("isLeastGM", "technique", "modifier", technique.system.mods[mod].system.scripts.prepScript);
+        try {
+            modFn.call(this, leastGM, technique, technique.system.mods[mod]);
+        } catch(err) {
+            ui.notifications.error("TECHNIQUE.MODSCRIPT.Error", { localize: false });
+        }
 
         //apply mod effective technique level cost
         effectiveModLevel +=
@@ -128,13 +135,6 @@ export async function _prepareTechniqueData(technique) {
         technique.system.text.crunch.special += technique.system.mods[mod].system.text.template.special;
         technique.system.text.crunch.formatStrings = Object.assign({}, technique.system.text.crunch.formatStrings, technique.system.mods[mod].flags.valor?.formatStrings ?? {});
 
-        //run modifier prep script
-        const modFn = new AsyncFunction("isLeastGM", "technique", "modifier", technique.system.mods[mod].system.scripts.prepScript);
-        try {
-            modFn.call(this, leastGM, technique, technique.system.mods[mod]);
-        } catch(err) {
-            ui.notifications.error("TECHNIQUE.MODSCRIPT.Error", { localize: false });
-        }
     }
     technique.system.level.effectiveModLevel = effectiveModLevel;
 
@@ -151,7 +151,7 @@ export async function _prepareTechniqueData(technique) {
         technique.system.text.crunch.effect += technique.system.limits[limit].system.text.template.effect;
         technique.system.text.crunch.special += technique.system.limits[limit].system.text.template.special;
         technique.system.text.crunch.formatStrings = Object.assign({}, technique.system.text.crunch.formatStrings, technique.system.limits[limit].flags.valor?.formatStrings ?? {});
-        console.log(limits[limit]);
+        //console.log(limits[limit]);
         //run limit prep script
         const limitFn = new AsyncFunction("isLeastGM", "technique", "limit", technique.system.limits[limit].system.scripts.prepScript);
         try {
