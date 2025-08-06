@@ -4,6 +4,7 @@
  * @param {Actor|Item} owner      The owning document which manages this effect
  */
  export function onManageActiveEffect(event, owner) {
+  console.log(event.currentTarget.dataset.action);
   event.preventDefault();
   const a = event.currentTarget;
   const li = a.closest("li");
@@ -11,7 +12,7 @@
   switch ( a.dataset.action ) {
     case "create":
       return owner.createEmbeddedDocuments("ActiveEffect", [{
-        label: "New Effect",
+        name: "New Effect",
         icon: "icons/svg/aura.svg",
         origin: owner.uuid,
         "duration.rounds": li.dataset.effectType === "temporary" ? 1 : undefined,
