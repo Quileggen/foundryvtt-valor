@@ -54,7 +54,6 @@ export class valorActor extends Actor {
     actor.calculateExperience(actor, characterType);
     actor.calculateSeason(actor);
     actor.calculateAttributePoints(actor);
-    actor.calculateSkillPoints(actor, characterType);
     actor.calculateDamageIncrement(actor, characterType);
     actor.calculateZoneOfControl(actor, characterType);
     actor.calculateSize(actor, characterType);
@@ -66,17 +65,6 @@ export class valorActor extends Actor {
     const characterType = actor.getCharacterType(actor);
     const items = actor.itemTypes;
     
-    actor.calculateActiveAttributes(actor, characterType);
-    actor.calculateHealth(actor, characterType);
-    actor.calculateStamina(actor, characterType);
-    actor.calculateIncrements(actor);
-    actor.calculateTechniquePoints(actor, characterType);
-    actor.calculateDefense(actor, characterType);
-    actor.calculateResistance(actor, characterType);
-    actor.calculateAttack(actor, characterType);
-    actor.calculateMove(actor, characterType);
-    actor.calculateInitiative(actor, characterType);
-
     for (const item of items["flaw"]) {
       skillFlaw._prepareSkillFlawData(item);
       actor.calculateIncrements(actor)
@@ -88,6 +76,18 @@ export class valorActor extends Actor {
     for (const item of items["technique"]) {
       Technique._prepareTechniqueData(item);
     }
+    
+    actor.calculateActiveAttributes(actor, characterType);
+    actor.calculateHealth(actor, characterType);
+    actor.calculateStamina(actor, characterType);
+    actor.calculateIncrements(actor);
+    actor.calculateSkillPoints(actor, characterType);
+    actor.calculateTechniquePoints(actor, characterType);
+    actor.calculateDefense(actor, characterType);
+    actor.calculateResistance(actor, characterType);
+    actor.calculateAttack(actor, characterType);
+    actor.calculateMove(actor, characterType);
+    actor.calculateInitiative(actor, characterType);
   }
 
   /**
@@ -194,11 +194,11 @@ export class valorActor extends Actor {
   calculateSkillPoints(actor, characterType) {
     let level = actor.system.misc.level.value;
     let flawMaxBonusSP = 7 + level;
-    
+
     actor.system.misc.skillPoints.flawBonus.maxFlawSP.value = flawMaxBonusSP;
     actor.system.misc.skillPoints.total.value += Math.ceil((characterType.baseSkillPoints
-        + (characterType.levelSkillPoints * level))
-        - Math.min(actor.system.misc.skillPoints.flawBonus.value, flawMaxBonusSP)
+        + (characterType.levelSkillPoints * level)
+        + Math.min(actor.system.misc.skillPoints.flawBonus.value, flawMaxBonusSP))
         * characterType.multiplierSkillPoints);
   }
 

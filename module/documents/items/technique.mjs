@@ -141,6 +141,13 @@ export async function _prepareTechniqueData(technique) {
     //process limits
     let costReduction = 0;
     for (const limit in technique.system.limits) {
+        //run limit prep script
+        const limitFn = new AsyncFunction("isLeastGM", "technique", "limit", technique.system.limits[limit].system.scripts.prepScript);
+        try {
+            limitFn.call(this, leastGM, technique, technique.system.limits[limit]);
+        } catch(err) {
+            ui.notifications.error("TECHNIQUE.LIMITSCRIPT.Error", { localize: false });
+        }
 
         //apply limit stamina cost reduction
         costReduction +=
@@ -152,13 +159,6 @@ export async function _prepareTechniqueData(technique) {
         technique.system.text.crunch.special += technique.system.limits[limit].system.text.template.special;
         technique.system.text.crunch.formatStrings = Object.assign({}, technique.system.text.crunch.formatStrings, technique.system.limits[limit].flags.valor?.formatStrings ?? {});
         //console.log(limits[limit]);
-        //run limit prep script
-        const limitFn = new AsyncFunction("isLeastGM", "technique", "limit", technique.system.limits[limit].system.scripts.prepScript);
-        try {
-            limitFn.call(this, leastGM, technique, technique.system.limits[limit]);
-        } catch(err) {
-            ui.notifications.error("TECHNIQUE.LIMITSCRIPT.Error", { localize: false });
-        }
     }
 
     technique.system.cost.stamina.limitReduction = costReduction;
