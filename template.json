@@ -368,6 +368,7 @@
         "base": 0,
         "perCP": 0,
         "bonus": 0,
+        "total": 0,
         "modifiers": []
       },
       "action": "attack",

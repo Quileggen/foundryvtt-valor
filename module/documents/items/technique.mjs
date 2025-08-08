@@ -109,10 +109,10 @@ export async function _prepareTechniqueData(technique) {
     }
 
     // Evaluate bonus formula
-    const bonusFn = new AsyncFunction("isleastGM", "technique", "attribute", "attack", "return ".concat(core.system.scripts.bonusFormula));
+    const bonusFn = new Function("isleastGM", "technique", "attribute", "attack", "return ".concat(core.system.scripts.bonusFormula));
     let bonus = 0;
     try {
-        bonus = await bonusFn.call(this, leastGM, technique, technique.parent.system.attribute[technique.system.attribute.effect].value ?? 0, technique.parent.system.statistic.attack[technique.system.attribute.effect].value ?? 0);
+        bonus = bonusFn.call(this, leastGM, technique, technique.parent.system.attribute[technique.system.attribute.effect].value ?? 0, technique.parent.system.statistic.attack[technique.system.attribute.effect].value ?? 0);
     } catch(err) {
         ui.notifications.error("CORE.BONUSFORMULA.Error", { localize: false });
     }
@@ -182,6 +182,9 @@ export async function _prepareTechniqueData(technique) {
         technique.system.level.effectiveModLevel;
 
     technique.parent.system.misc.techniquePoints.spent.value += technique.system.level.techniqueLevel;
+
+    //calculate final value total
+    technique.system.value.total = technique.system.value.base + (technique.system.value.perCP * technique.system.level.coreLevel) + technique.system.value.bonus;
 
     //calculate final stamina cost
     technique.system.cost.stamina.value = Math.max(

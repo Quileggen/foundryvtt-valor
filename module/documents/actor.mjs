@@ -73,9 +73,6 @@ export class valorActor extends Actor {
       skillFlaw._prepareSkillFlawData(item);
       actor.calculateIncrements(actor)
     }
-    for (const item of items["technique"]) {
-      Technique._prepareTechniqueData(item);
-    }
     
     actor.calculateActiveAttributes(actor, characterType);
     actor.calculateHealth(actor, characterType);
@@ -88,6 +85,10 @@ export class valorActor extends Actor {
     actor.calculateAttack(actor, characterType);
     actor.calculateMove(actor, characterType);
     actor.calculateInitiative(actor, characterType);
+
+    for (const item of items["technique"]) {
+      Technique._prepareTechniqueData(item);
+    }
   }
 
   /**
