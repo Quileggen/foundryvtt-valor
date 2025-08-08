@@ -93,6 +93,8 @@ export async function _prepareTechniqueData(technique) {
     technique.system.core.system = core.system;
     technique.system.action = core.system.action;
     technique.system.cost.stamina.min = core.system.staminaCost.min;
+    technique.system.value.base = core.system.value.base;
+    technique.system.value.perCP = core.system.value.perCP;
     technique.system.targets = core.system.targets;
     technique.system.range = core.system.range;
     technique.system.area = core.system.area;
@@ -105,6 +107,17 @@ export async function _prepareTechniqueData(technique) {
     if (technique.system.isUlt === true) {
         technique.system.uses.max = 1;
     }
+
+    // Evaluate bonus formula
+    const bonusFn = new AsyncFunction("isleastGM", "technique", "attribute", "attack", "return ".concat(core.system.scripts.bonusFormula));
+    let bonus = 0;
+    try {
+        bonus = await bonusFn.call(this, leastGM, technique, technique.parent.system.attribute[technique.system.attribute.effect].value ?? 0, technique.parent.system.statistic.attack[technique.system.attribute.effect].value ?? 0);
+    } catch(err) {
+        ui.notifications.error("CORE.BONUSFORMULA.Error", { localize: false });
+    }
+    technique.system.value.bonus = bonus;
+
 
     //run core prepScript
     const coreFn = new AsyncFunction( "isLeastGM", "technique", "core", core.system.scripts.prepScript);

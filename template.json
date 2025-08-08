@@ -364,6 +364,12 @@
           "modifiers": []
         }
       },
+      "value": {
+        "base": 0,
+        "perCP": 0,
+        "bonus": 0,
+        "modifiers": []
+      },
       "action": "attack",
       "range": {
         "min": 0,

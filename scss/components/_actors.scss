@@ -3,7 +3,7 @@
   height: 28px;
   margin: 2px 0;
   padding: 0;
-  align-actors: center;
+  align-items: center;
   background: rgba(0, 0, 0, 0.05);
   border: $border-groove;
   font-weight: bold;
@@ -46,7 +46,7 @@
     overflow: hidden;
     font-size: 13px;
     text-align: left;
-    align-actors: center;
+    align-items: center;
     display: flex;
     h3, h4 {
       margin: 0;
@@ -69,7 +69,7 @@
 
   // Individual actor
   .actor {
-    align-actors: center;
+    align-items: center;
     padding: 0 2px; // to align with the header border
     border-bottom: 1px solid $c-white;
     &:last-child { border-bottom: none; }
@@ -97,7 +97,7 @@
     height: 28px;
     margin: 2px 0;
     padding: 0;
-    align-actors: center;
+    align-items: center;
     background: rgba(0, 0, 0, 0.05);
     border: $border-groove;
     font-weight: bold;

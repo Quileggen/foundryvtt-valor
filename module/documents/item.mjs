@@ -47,7 +47,8 @@ export class valorItem extends Item {
    * Prepare a data object which is passed to any Roll formulas which are created related to this Item
    * @private
    */
-   getRollData() {
+  getRollData() {
+    console.log("This:", this);
     // If present, return the actor's roll data.
     if ( !this.actor ) return null;
     const rollData = this.actor.getRollData();
@@ -63,19 +64,49 @@ export class valorItem extends Item {
    */
   async roll() {
     const item = this;
+    console.log(item);
 
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     const rollMode = game.settings.get('core', 'rollMode');
-    const label = `[${item.type}] ${item.name}`;
+    const label = `<h2>${item.name}</h2><i>Level ${item.system.level.value}</i>`;
+
+    let formula = null;
+    let content = "";
+    const text = item.system.text;
+    if (item.type == "technique") {
+      // 1d10 + active attribute + attack roll bonus (all) + attack roll bonus (active attribute)
+      // Then remove any empty additions
+      formula = `1d10+${item.parent.system.attribute[item.system.attribute.opposedRoll].value ?? 0}+${item.parent.system.rollModifiers.attackRolls.all.value ?? 0}+${item.parent.system.rollModifiers.attackRolls[item.system.attribute.opposedRoll].value ?? 0}`;
+      formula = formula.replaceAll("+0", "");
+
+      content = content.concat("<br>", text.crunch.effect);
+      if (text.flavor.user) {content = content.concat("<br><br>", text.flavor.user);}
+      else {content = content.concat("<br><br>", text.flavor.default);}
+    }
 
     // If there's no roll data, send a chat message.
-    if (!this.system.formula) {
+    if (!formula) {
+      switch (item.type) {
+        case "skill":
+        case "flaw":
+          content = content.concat("<br><b>Effect:</b> ", text.effect);
+          if (text.levelUp) {content = content.concat("<br><b>Level Up:</b> ", text.levelUp);}
+          if (text.special) {content = content.concat("<br><b>Special:</b> ", text.special);}
+          break;
+        case "technique":
+          content = content.concat("<br>", text.crunch.effect);
+          if (text.flavor.user) {content = content.concat("<br><br>", text.flavor.user);}
+          else {content = content.concat("<br><br>", text.flavor.default);}
+          break;
+        default:
+          content = item.name;
+      }
       ChatMessage.create({
         speaker: speaker,
         rollMode: rollMode,
         flavor: label,
-        content: item.system.description ?? ''
+        content: content
       });
     }
     // Otherwise, create a roll and send a chat message from it.
@@ -84,13 +115,13 @@ export class valorItem extends Item {
       const rollData = this.getRollData();
 
       // Invoke the roll and submit it to chat.
-      const roll = new Roll(rollData.item.formula, rollData);
+      const roll = new Roll(formula, rollData);
       // If you need to store the value first, uncomment the next line.
       // let result = await roll.roll({async: true});
       roll.toMessage({
         speaker: speaker,
         rollMode: rollMode,
-        flavor: label,
+        flavor: label.concat(content),
       });
       return roll;
     }

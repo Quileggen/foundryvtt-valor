@@ -13,7 +13,7 @@ export class valorActorSheet extends ActorSheet {
       template: "systems/valor/templates/actor/actor-sheet.html",
       width: 600,
       height: 600,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "stats" }]
     });
   }
 
