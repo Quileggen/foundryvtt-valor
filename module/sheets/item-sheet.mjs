@@ -1,6 +1,6 @@
 import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/effects.mjs";
 import {onManageModifier, prepareModifiers} from "../helpers/modifiers.mjs";
-import {onTechOptChange, onTechOptDelete} from "../utils.mjs";
+import {onTechOptChange, onTechOptDelete, onFlagFieldChange} from "../utils.mjs";
 import {VALOR} from "../helpers/config.mjs";
 
 /**
@@ -110,6 +110,8 @@ export class valorItemSheet extends ItemSheet {
 
     html.find(".modifier-control").click(ev => onManageModifier(ev, this.item));
 
+    //updates flags if the flag field is changed
+    html.find(".flag-field").on('change', ev => onFlagFieldChange(this.item, ev.target.value));
 
     //deletes a Modifier or Limit from Technique
     html.find(".techOpt").click(ev => onTechOptDelete(ev.target.getAttribute('value'), this.item));

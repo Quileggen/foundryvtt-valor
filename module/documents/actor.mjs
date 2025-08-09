@@ -65,6 +65,16 @@ export class valorActor extends Actor {
     const characterType = actor.getCharacterType(actor);
     const items = actor.itemTypes;
     
+    actor.calculateActiveAttributes(actor, characterType);
+    actor.calculateHealth(actor, characterType);
+    actor.calculateStamina(actor, characterType);
+    actor.calculateIncrements(actor);
+    actor.calculateDefense(actor, characterType);
+    actor.calculateResistance(actor, characterType);
+    actor.calculateAttack(actor, characterType);
+    actor.calculateMove(actor, characterType);
+    actor.calculateInitiative(actor, characterType);
+    
     for (const item of items["flaw"]) {
       skillFlaw._prepareSkillFlawData(item);
       actor.calculateIncrements(actor)
@@ -73,22 +83,12 @@ export class valorActor extends Actor {
       skillFlaw._prepareSkillFlawData(item);
       actor.calculateIncrements(actor)
     }
-    
-    actor.calculateActiveAttributes(actor, characterType);
-    actor.calculateHealth(actor, characterType);
-    actor.calculateStamina(actor, characterType);
-    actor.calculateIncrements(actor);
     actor.calculateSkillPoints(actor, characterType);
-    actor.calculateTechniquePoints(actor, characterType);
-    actor.calculateDefense(actor, characterType);
-    actor.calculateResistance(actor, characterType);
-    actor.calculateAttack(actor, characterType);
-    actor.calculateMove(actor, characterType);
-    actor.calculateInitiative(actor, characterType);
 
     for (const item of items["technique"]) {
       Technique._prepareTechniqueData(item);
     }
+    actor.calculateTechniquePoints(actor, characterType);
   }
 
   /**

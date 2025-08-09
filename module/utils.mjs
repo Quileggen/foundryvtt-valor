@@ -79,6 +79,23 @@ export function onTechOptDelete(_id, technique) {
     technique.unsetFlag('valor',`technique.${techOpt.type}.${_id}`);
 }
 
+/**
+ * runs the setFlag method on an item when the flags text field is changed 
+ * @param {valorItem} item
+ * @param {string} flagString
+ */
+export function onFlagFieldChange(item, flagString) {
+
+    console.log("Flags Changed");
+    console.log(item);
+    console.log(flagString);
+    console.log(JSON.parse(flagString));
+    const flagJson = JSON.parse(flagString);
+    for (const key in flagJson) {
+        item.setFlag('valor', key, flagJson[key]);
+    }
+}
+
 
 /**
  * checks if a user is the GM with the least value id, for scenerios where

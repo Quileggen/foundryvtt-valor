@@ -1,4 +1,6 @@
 import {VALOR} from "../../helpers/config.mjs";
+import {AsyncFunction, isLeastGM} from "../../utils.mjs";
+
 
 /**
  * calculates and applies skill or flaw data to actor
@@ -7,6 +9,8 @@ import {VALOR} from "../../helpers/config.mjs";
  * @private
  */
 export function _prepareSkillFlawData(skillFlaw) {
+    const leastGM = isLeastGM();
+
     //set max level based on actor level and progression speed
     if (!skillFlaw.system.isEffect && skillFlaw.isOwned) {
         skillFlaw.system.level.max = Math.max(Math.ceil(skillFlaw.parent.system.misc.level.value / VALOR.skills.progression[skillFlaw.system.progression]), 1)
@@ -44,6 +48,15 @@ export function _prepareSkillFlawData(skillFlaw) {
         foundry.utils.setProperty(skillFlaw.parent, skillPointTarget, skillPointData);
     }
 
+    //run prepScript
+    const skillFlawFn = new AsyncFunction( "isLeastGM", "parent", "item", skillFlaw.system.scripts.prepScript);
+    try {
+        skillFlawFn.call(this, leastGM, skillFlaw.parent, skillFlaw);
+    } catch(err) {
+        console.log(err);
+        ui.notifications.error("SKILLFLAW.SCRIPT.Error", { localize: false });
+    }
+
     //apply each modifier bonus, based on if condition is true
     if (skillFlaw.system.isActive && skillFlaw.isOwned) {
         for (const modifier of skillFlaw.getFlag('valor','modifiers') ?? []) {
@@ -67,9 +80,14 @@ export function _prepareSkillFlawData(skillFlaw) {
                             }
                         }
 
+                        console.log("xy:", xy);
+
                         //runs final substrings through an anonymous function to execute the joined string as code, for determining total of equation
                         const x = Function(`"use strict"; return ${(xy[0].toString()).replaceAll(",", "")};`)();
                         const y = Function(`"use strict"; return ${(xy[1].toString()).replaceAll(",", "")};`)();
+
+                        console.log("x:", x);
+                        console.log("y:", y);
 
                         //checks what kind of comparison operation is to be performed between the two conditions, and checks truth value
                         switch (modifier.condition.operator) {
@@ -98,6 +116,7 @@ export function _prepareSkillFlawData(skillFlaw) {
                     //applies modifier if condition is true
                     if (condition) {
                         const target = foundry.utils.getProperty(skillFlaw.parent, `${modifier.targetData}`);
+                        console.log(target);
                         let effectiveLevel;
                         let baseLevel = 0;
                         let boostLevel = 0;
@@ -145,6 +164,8 @@ export function _prepareSkillFlawData(skillFlaw) {
                         };
                         Object.assign(target.modifiers, updateModifiers);
                         Object.assign(target, {value: targetNewTotal});
+                        console.log(target);
+                        console.log(modifier.targetData);
                         foundry.utils.setProperty(skillFlaw.parent, `${modifier.targetData}`, target);
                     }
                 } catch (error) {

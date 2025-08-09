@@ -19,6 +19,7 @@ export async function _runCompendiumTechScript(technique, techOpt) {
     try {
         await TechFn.call(this, technique, techOpt);
     } catch(err) {
+        console.log(err);
         ui.notifications.error(`TECHNIQUE.${(techOpt.type).toUpperCase()}SCRIPT.Error`, { localize: false });
     }
 }
@@ -114,6 +115,7 @@ export async function _prepareTechniqueData(technique) {
     try {
         bonus = bonusFn.call(this, leastGM, technique, technique.parent.system.attribute[technique.system.attribute.effect].value ?? 0, technique.parent.system.statistic.attack[technique.system.attribute.effect].value ?? 0);
     } catch(err) {
+        console.log(err);
         ui.notifications.error("CORE.BONUSFORMULA.Error", { localize: false });
     }
     technique.system.value.bonus = bonus;
@@ -124,6 +126,7 @@ export async function _prepareTechniqueData(technique) {
     try {
         coreFn.call(this, leastGM, technique, core);
     } catch(err) {
+        console.log(err);
         ui.notifications.error("TECHNIQUE.CORESCRIPT.Error", { localize: false });
     }
 
@@ -135,6 +138,7 @@ export async function _prepareTechniqueData(technique) {
         try {
             modFn.call(this, leastGM, technique, technique.system.mods[mod]);
         } catch(err) {
+            console.log(err);
             ui.notifications.error("TECHNIQUE.MODSCRIPT.Error", { localize: false });
         }
 
@@ -159,6 +163,7 @@ export async function _prepareTechniqueData(technique) {
         try {
             limitFn.call(this, leastGM, technique, technique.system.limits[limit]);
         } catch(err) {
+            console.log(err);
             ui.notifications.error("TECHNIQUE.LIMITSCRIPT.Error", { localize: false });
         }
 
