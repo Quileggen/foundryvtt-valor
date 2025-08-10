@@ -210,6 +210,10 @@
         }
       },
       "rollModifiers": {
+        "allRolls": {
+          "value": 0,
+          "modifiers": {}
+        },
         "attackRolls": {
           "all": {
             "value": 0,

@@ -147,6 +147,16 @@ export class valorActorSheet extends ActorSheet {
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
 
+    // Modifier buttons for roll bonus
+    html.find('#minusRollBonus').click(ev => {
+      ev.preventDefault();
+      this.actor.update({system: {rollModifiers:{allRolls: {value: this.actor.system.rollModifiers.allRolls.value-1}}}});
+    });
+    html.find('#plusRollBonus').click(ev => {
+      ev.preventDefault();
+      this.actor.update({system: {rollModifiers:{allRolls: {value: this.actor.system.rollModifiers.allRolls.value+1}}}});
+    });
+
     // Drag events for macros.
     if (this.actor.owner) {
       let handler = ev => this._onDragStart(ev);

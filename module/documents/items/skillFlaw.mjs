@@ -49,9 +49,9 @@ export function _prepareSkillFlawData(skillFlaw) {
     }
 
     //run prepScript
-    const skillFlawFn = new AsyncFunction( "isLeastGM", "parent", "item", skillFlaw.system.scripts.prepScript);
+    const skillFlawFn = new AsyncFunction( "isLeastGM", "parent", "item", "effects", skillFlaw.system.scripts.prepScript);
     try {
-        skillFlawFn.call(this, leastGM, skillFlaw.parent, skillFlaw);
+        skillFlawFn.call(this, leastGM, skillFlaw.parent, skillFlaw, skillFlaw.transferredEffects);
     } catch(err) {
         console.log(err);
         ui.notifications.error("SKILLFLAW.SCRIPT.Error", { localize: false });

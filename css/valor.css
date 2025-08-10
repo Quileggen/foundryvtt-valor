@@ -240,6 +240,10 @@
   margin: auto;
 }
 
+.roll-mod-button {
+  flex: 0.5;
+}
+
 .valor.sheet.actor {
   min-width: 780px;
   min-height: 550px;

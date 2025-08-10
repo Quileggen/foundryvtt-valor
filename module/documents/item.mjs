@@ -77,7 +77,7 @@ export class valorItem extends Item {
     if (item.type == "technique") {
       // 1d10 + active attribute + attack roll bonus (all) + attack roll bonus (active attribute)
       // Then remove any empty additions
-      formula = `1d10+${item.parent.system.attribute[item.system.attribute.opposedRoll].value ?? 0}+${item.parent.system.rollModifiers.attackRolls.all.value ?? 0}+${item.parent.system.rollModifiers.attackRolls[item.system.attribute.opposedRoll].value ?? 0}`;
+      formula = `1d10+${item.parent.system.attribute[item.system.attribute.opposedRoll].value ?? 0}+${item.parent.system.rollModifiers.allRolls.value ?? 0}+${item.parent.system.rollModifiers.attackRolls.all.value ?? 0}+${item.parent.system.rollModifiers.attackRolls[item.system.attribute.opposedRoll].value ?? 0}`;
       formula = formula.replaceAll("+0", "");
 
       content = content.concat("<br>", text.crunch.effect);
