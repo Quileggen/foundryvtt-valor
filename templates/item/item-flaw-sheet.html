@@ -50,7 +50,7 @@
 
         {{!-- Details Tab --}}
         <div class="tab" data-group="primary" data-tab="details">
-            <div class="resources grid grid-3col">
+            <div class="resources grid grid-4col">
                 <div class="resource flex-group-center">
                     <label for="system.sp.base" class="resource-label">Base Bonus SP</label>
                     <div class="resource-content flexrow flex-center flex-between">
@@ -69,6 +69,13 @@
                     <label for="system.progression" class="resource-label">Progression</label>
                     <div class="resource-content flexrow flex-center flex-between">
                         <input type="text" name="system.progression" value="{{system.progression}}" data-dtype="String"/>
+                    </div>
+                </div>
+
+                <div class="resource flex-group-center">
+                    <label for="system.isEffect" class="resource-label">Temporary:</label>
+                    <div class="resource-content flexrow flex-center flex-between">
+                        <input type="checkbox" name="system.isEffect" value="{{system.isEffect}}" data-dtype="Boolean" {{#if system.isEffect}}checked{{/if}}>
                     </div>
                 </div>
             </div>

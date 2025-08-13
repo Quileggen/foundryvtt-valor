@@ -147,6 +147,12 @@ export class valorActorSheet extends ActorSheet {
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
 
+    html.find('.technique-roll').click(ev => {
+      if (ev.shiftKey) {
+        console.log(game.user);
+      }
+    })
+
     // Modifier buttons for roll bonus
     html.find('#minusRollBonus').click(ev => {
       ev.preventDefault();

@@ -61,13 +61,18 @@ Hooks.once('init', async function() {
   return preloadHandlebarsTemplates();
 });
 
-//preload Technique Compendium
+//preload Compendiums
 Hooks.once('ready', async function() {
   const techCompendium = game.packs.get("valor.techniques");
+  const skillFlawCompendium = game.packs.get("valor.flaws-and-skills");
 
   for (let techComponent of techCompendium.index) {
     fromUuid(techComponent.uuid);
     console.log(techComponent)
+  }
+  for (let skillFlawComponent of skillFlawCompendium.index) {
+    fromUuid(skillFlawComponent.uuid);
+    console.log(skillFlawComponent)
   }
 });
 
