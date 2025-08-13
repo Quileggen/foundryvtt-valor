@@ -80,14 +80,9 @@ export function _prepareSkillFlawData(skillFlaw) {
                             }
                         }
 
-                        console.log("xy:", xy);
-
                         //runs final substrings through an anonymous function to execute the joined string as code, for determining total of equation
                         const x = Function(`"use strict"; return ${(xy[0].toString()).replaceAll(",", "")};`)();
                         const y = Function(`"use strict"; return ${(xy[1].toString()).replaceAll(",", "")};`)();
-
-                        console.log("x:", x);
-                        console.log("y:", y);
 
                         //checks what kind of comparison operation is to be performed between the two conditions, and checks truth value
                         switch (modifier.condition.operator) {
@@ -116,7 +111,6 @@ export function _prepareSkillFlawData(skillFlaw) {
                     //applies modifier if condition is true
                     if (condition) {
                         const target = foundry.utils.getProperty(skillFlaw.parent, `${modifier.targetData}`);
-                        console.log(target);
                         let effectiveLevel;
                         let baseLevel = 0;
                         let boostLevel = 0;
@@ -164,8 +158,6 @@ export function _prepareSkillFlawData(skillFlaw) {
                         };
                         Object.assign(target.modifiers, updateModifiers);
                         Object.assign(target, {value: targetNewTotal});
-                        console.log(target);
-                        console.log(modifier.targetData);
                         foundry.utils.setProperty(skillFlaw.parent, `${modifier.targetData}`, target);
                     }
                 } catch (error) {

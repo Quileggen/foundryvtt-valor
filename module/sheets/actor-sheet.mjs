@@ -1,4 +1,5 @@
 import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/effects.mjs";
+import {createTempSkillFlaws} from "../utils.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -119,6 +120,14 @@ export class valorActorSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
+    // Prevent the enter key from pressing buttons
+    html.on('keydown', (ev => {
+      if(ev.keyCode == 13) {
+        ev.preventDefault();
+        return false;
+      }
+    }));
+
     // Render the item sheet for viewing/editing prior to the editable check.
     html.find('.item-edit').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
@@ -149,7 +158,7 @@ export class valorActorSheet extends ActorSheet {
 
     html.find('.technique-roll').click(ev => {
       if (ev.shiftKey) {
-        console.log(game.user);
+        createTempSkillFlaws(this.actor, game.user.targets, ev.currentTarget.parentNode.parentNode.parentNode.dataset.itemId);
       }
     })
 

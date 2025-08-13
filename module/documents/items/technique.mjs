@@ -209,13 +209,9 @@ export async function _prepareTechniqueData(technique) {
     // Process skills
     let skillSP = 0;
     for (const skill in technique.system.skills) {
-        console.log(skill);
-        console.log(technique.system.skills[skill]);
-        console.log(technique.system.skills[skill]);
         skillSP += 
             technique.system.skills[skill].system.sp.base +
             ((technique.system.skills[skill].system.level.value-1) * technique.system.skills[skill].system.sp.levelUp);
-        console.log("SkillSP", skillSP);
     }
     technique.system.skillSP.value = skillSP;
 

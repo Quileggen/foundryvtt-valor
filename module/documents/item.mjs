@@ -48,7 +48,6 @@ export class valorItem extends Item {
    * @private
    */
   getRollData() {
-    console.log("This:", this);
     // If present, return the actor's roll data.
     if ( !this.actor ) return null;
     const rollData = this.actor.getRollData();
@@ -83,6 +82,15 @@ export class valorItem extends Item {
       content = content.concat("<br>", text.crunch.effect);
       if (text.flavor.user) {content = content.concat("<br><br>", text.flavor.user);}
       else {content = content.concat("<br><br>", text.flavor.default);}
+
+      // Subtract costs from technique's actor
+      item.actor.update({
+        system: {
+          statistic: {
+            health: {value: item.actor.system.statistic.health.value - item.system.cost.health.value},
+            stamina: {value: item.actor.system.statistic.stamina.value - item.system.cost.stamina.value},
+            valor: {value: item.actor.system.statistic.valor.value - item.system.cost.valor.value}
+        }}});
     }
 
     // If there's no roll data, send a chat message.

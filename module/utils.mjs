@@ -111,6 +111,28 @@ export function onFlagFieldChange(item, flagString) {
 
 
 /**
+ * create skills and flaws from boost/weaken/debilitate techniques on targeted actors
+ * @param {*} actor 
+ * @param {*} targets 
+ * @param {*} techId 
+ */
+export async function createTempSkillFlaws(actor, targets, techId) {
+    const tech = actor.items.get(techId)
+
+    for (const target of targets) {
+        for (const skill in tech.system.skills) {
+            let createdSkill = await target.actor.createEmbeddedDocuments("Item", [tech.system.skills[skill]]);
+            createdSkill[0].update({system: {isEffect: true}});
+        }
+        for (const flaw in tech.system.flaws) {
+            let createdFlaw = await target.actor.createEmbeddedDocuments("Item", [tech.system.flaws[flaw]]);
+            createdFlaw[0].update({system: {isEffect: true}});
+        }
+    }
+}
+
+
+/**
  * checks if a user is the GM with the least value id, for scenerios where
  * code should fire only once from a single GM
  * @returns {*|boolean}
