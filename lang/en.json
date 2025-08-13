@@ -66,6 +66,18 @@
   "VALOR.ModifierEdit": "Edit Modifier",
   "VALOR.ModifierDelete": "Delete Modifier",
 
+  "VALOR.LimitCreate": "Create Limit",
+  "VALOR.LimitEdit": "Edit Limit",
+  "VALOR.LimitDelete": "Delete Limit",
+
+  "VALOR.SkillCreate": "Create Skill",
+  "VALOR.SkillEdit": "Edit Skill",
+  "VALOR.SkillDelete": "Delete Skill",
+
+  "VALOR.FlawCreate": "Create Flaw",
+  "VALOR.FlawEdit": "Edit Flaw",
+  "VALOR.FlawDelete": "Delete Flaw",
+
 
 
   "VALOR.Add": "Add"

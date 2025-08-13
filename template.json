@@ -358,6 +358,8 @@
       },
       "mods": {},
       "limits": {},
+      "skills": {},
+      "flaws": {},
       "cost": {
         "stamina": {
           "value": 0,
@@ -373,6 +375,14 @@
           "value": 0,
           "modifiers": []
         }
+      },
+      "skillSP": {
+        "value": 0,
+        "modifiers": []
+      },
+      "flawSP": {
+        "value": 0,
+        "modifiers": []
       },
       "value": {
         "base": 0,

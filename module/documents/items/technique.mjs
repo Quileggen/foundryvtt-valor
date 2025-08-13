@@ -35,6 +35,7 @@ export async function _prepareTechniqueData(technique) {
 
     const leastGM = isLeastGM();
     const techComp = game.packs.get("valor.techniques");
+    const skillFlawComp = game.packs.get("valor.flaws-and-skills");
 
     //defaults core to first core in Compendium if no core has been set
     if (technique.system.core.uuid === "") {
@@ -80,6 +81,32 @@ export async function _prepareTechniqueData(technique) {
         retrievedLimit = retrievedLimit.toObject(false);
         foundry.utils.setProperty(retrievedLimit, "system.level", limits[limit].level);
         foundry.utils.setProperty(technique, `system.limits.${limit}`, retrievedLimit);
+    }
+
+    //fetch skills from compendium
+    const skills = technique.flags.valor?.technique?.skill ?? {};
+    for (const skill in skills ) {
+
+        let retrievedSkill = skillFlawComp.get(skills[skill]._id);
+        if (retrievedSkill == null) {
+            retrievedSkill = await fromUuid(skills[skill].uuid);
+        }
+        retrievedSkill = retrievedSkill.toObject(false);
+        foundry.utils.setProperty(retrievedSkill, "system.level.value", skills[skill].level);
+        foundry.utils.setProperty(technique, `system.skills.${skill}`, retrievedSkill);
+    }
+
+    //fetch flaws from compendium
+    const flaws = technique.flags.valor?.technique?.flaw ?? {};
+    for (const flaw in flaws ) {
+
+        let retrievedFlaw = skillFlawComp.get(flaws[flaw]._id);
+        if (retrievedFlaw == null) {
+            retrievedFlaw = await fromUuid(flaws[flaw].uuid);
+        }
+        retrievedFlaw = retrievedFlaw.toObject(false);
+        foundry.utils.setProperty(retrievedFlaw, "system.level.value", flaws[flaw].level);
+        foundry.utils.setProperty(technique, `system.flaws.${flaw}`, retrievedFlaw);
     }
 
     //confirms a selected base Attribute is valid and gets active Attribute
@@ -178,6 +205,28 @@ export async function _prepareTechniqueData(technique) {
         technique.system.text.crunch.formatStrings = Object.assign({}, technique.system.text.crunch.formatStrings, technique.system.limits[limit].flags.valor?.formatStrings ?? {});
         //console.log(limits[limit]);
     }
+
+    // Process skills
+    let skillSP = 0;
+    for (const skill in technique.system.skills) {
+        console.log(skill);
+        console.log(technique.system.skills[skill]);
+        console.log(technique.system.skills[skill]);
+        skillSP += 
+            technique.system.skills[skill].system.sp.base +
+            ((technique.system.skills[skill].system.level.value-1) * technique.system.skills[skill].system.sp.levelUp);
+        console.log("SkillSP", skillSP);
+    }
+    technique.system.skillSP.value = skillSP;
+
+    // Process flaws
+    let flawSP = 0;
+    for (const flaw in technique.system.flaws) {
+        flawSP += 
+            technique.system.flaws[flaw].system.sp.base +
+            ((technique.system.flaws[flaw].system.level.value-1) * technique.system.flaws[flaw].system.sp.levelUp);
+    }
+    technique.system.flawSP.value = flawSP;
 
     technique.system.cost.stamina.limitReduction = costReduction;
 

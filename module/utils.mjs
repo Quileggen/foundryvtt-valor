@@ -39,7 +39,9 @@ export async function onTechOptChange(_id, technique) {
     if (_id === -1) return;
 
     const techComp = game.packs.get("valor.techniques");
-    const techOpt = (techComp.index).get(_id);
+    const skillFlawComp = game.packs.get("valor.flaws-and-skills");
+
+    const techOpt = (techComp.index).get(_id) ?? (skillFlawComp.index).get(_id);
 
     if (techOpt?.type === "core") {
         technique.update(
@@ -48,7 +50,7 @@ export async function onTechOptChange(_id, technique) {
                 "system.core._id": techOpt._id,
                 "system.core.uuid": techOpt.uuid
             });
-    } else if (techOpt?.type === "modifier" || techOpt?.type === "limit") {
+    } else if (techOpt?.type === "modifier" || techOpt?.type === "limit" || techOpt?.type === "skill" || techOpt?.type === "flaw") {
         technique.setFlag('valor',`technique.${techOpt.type}.${_id}`,
             {
                 "name": techOpt.name,
@@ -56,6 +58,15 @@ export async function onTechOptChange(_id, technique) {
                 "uuid": techOpt.uuid,
                 "level": 1
             });
+    // } else if (techOpt?.type === "skill" || techOpt?.type === "flaw") {
+    //     technique.setFlag('valor',`technique.${techOpt.type}.${_id}`,
+    //         {
+    //             "name": techOpt.name,
+    //             "_id": techOpt._id,
+    //             "uuid": techOpt.uuid,
+    //             "level": 1,
+    //             "sp": techOpt.system.sp.base
+    //         });
     } else {
         technique.update(
             {
@@ -74,7 +85,9 @@ export function onTechOptDelete(_id, technique) {
     if (_id == -1) return;
 
     const techComp = game.packs.get("valor.techniques");
-    const techOpt = (techComp.index).get(_id);
+    const skillFlawComp = game.packs.get("valor.flaws-and-skills");
+
+    const techOpt = (techComp.index).get(_id) ?? (skillFlawComp.index).get(_id);
 
     technique.unsetFlag('valor',`technique.${techOpt.type}.${_id}`);
 }

@@ -77,8 +77,12 @@ export class valorItemSheet extends ItemSheet {
     const compendiumCores = [];
     const compendiumMods = [];
     const compendiumLimits = [];
+    const compendiumSkills = [];
+    const compendiumFlaws = [];
+
 
     let techCompendium = game.packs.get("valor.techniques");
+    let skillFlawCompendium = game.packs.get("valor.flaws-and-skills");
 
     for (let techComponent of techCompendium.index) {
       if (techComponent.type === "core") {
@@ -90,10 +94,20 @@ export class valorItemSheet extends ItemSheet {
       }
     }
 
+    for (let skillFlaw of skillFlawCompendium.index) {
+      if (skillFlaw.type == "skill") {
+        compendiumSkills.push(skillFlaw);
+      } else if (skillFlaw.type == "flaw") {
+        compendiumFlaws.push(skillFlaw);
+      }
+    }
+
 
     context.compendiumCores = compendiumCores;
     context.compendiumMods = compendiumMods;
     context.compendiumLimits = compendiumLimits;
+    context.compendiumSkills = compendiumSkills;
+    context.compendiumFlaws = compendiumFlaws;
   }
 
 

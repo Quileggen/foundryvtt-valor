@@ -119,6 +119,47 @@
             </label>
           </label>
 
+          <br>
+          <br>
+
+          <label class="resource-label">Skills
+            <ol class="items-list season3 text-border1">
+              <li class="item flexrow items-header season3 background">
+                <div class="item-name">Name</div>
+                <div class="item-controls">
+                </div>
+              </li>
+              {{#each flags.valor.technique.skill as |item id|}}
+              <li class="item flexrow" data-item-id="{{item._id}}">
+                <div class="item-name">
+                  <h4>{{item.name}}</h4>
+                </div>
+                <div class="item-image">
+                  <input type="text" name="flags.valor.technique.skill.{{id}}.level" value="{{item.level}}" data-dtype="Number"/>
+                </div>
+                <div class="item-controls">
+                  <a class="techOpt" data-action="delete" title="{{localize 'VALOR.SkillDelete'}}" value="{{id}}"><i class="fas fa-trash" value="{{id}}"></i></a>
+                </div>
+              </li>
+              {{/each}}
+            </ol>
+            <br>
+            <div class="resource flexrow flex-group-center season1 text-border1">
+              <label for="system.skillSP" class="resource-label rollable flexlarge align-left" data-label="SkillSP">Total SP: </label>
+              {{system.skillSP.value}}
+            </div>
+
+            <label for="flags.valor.technique.skill" class="resource-label rollable flexlarge align-left" data-label="Skills">
+              <select class="techOptSelect">
+                <option value=-1>- Add Skill -</option>
+                <option value=-1>-</option>
+                {{#each compendiumSkills}}
+                <option value='{{this._id}}'>{{ this.name }}</option>
+                {{/each}}
+              </select>
+            </label>
+          </label>
+
         </div>
 
 
@@ -171,6 +212,47 @@
                 <option value='-1'>- Add Limit -</option>
                 <option value='-1'>-</option>
                 {{#each compendiumLimits}}
+                <option value='{{this._id}}'>{{ this.name }}</option>
+                {{/each}}
+              </select>
+            </label>
+          </label>
+
+          <br>
+          <br>
+
+          <label class="resource-label">Flaws
+            <ol class="items-list season4 text-border1">
+              <li class="item flexrow items-header season4 background">
+                <div class="item-name">Name</div>
+                <div class="item-controls">
+                </div>
+              </li>
+              {{#each flags.valor.technique.flaw as |item id|}}
+              <li class="item flexrow" data-item-id="{{item._id}}">
+                <div class="item-name">
+                  <h4>{{item.name}}</h4>
+                </div>
+                <div class="item-image">
+                  <input type="text" name="flags.valor.technique.flaw.{{id}}.level" value="{{item.level}}" data-dtype="Number"/>
+                </div>
+                <div class="item-controls">
+                  <a class="techOpt" data-action="delete" title="{{localize 'VALOR.FlawDelete'}}" value="{{id}}"><i class="fas fa-trash"value="{{id}}"></i></a>
+                </div>
+              </li>
+              {{/each}}
+            </ol>
+            <br>
+            <div class="resource flexrow flex-group-center season4 text-border1">
+              <label for="system.flawSP" class="resource-label rollable flexlarge align-left" data-label="FlawSP">Total SP: </label>
+              {{system.flawSP.value}}
+            </div>
+
+            <label for="flags.valor.technique.flaw" class="resource-label rollable flexlarge align-left" data-label="Flaws">
+              <select class="techOptSelect">
+                <option value='-1'>- Add Flaw -</option>
+                <option value='-1'>-</option>
+                {{#each compendiumFlaws}}
                 <option value='{{this._id}}'>{{ this.name }}</option>
                 {{/each}}
               </select>
