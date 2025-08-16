@@ -95,6 +95,10 @@ Handlebars.registerHelper('toLowerCase', function(str) {
   return str.toLowerCase();
 });
 
+Handlebars.registerHelper('isLimited', function(num) {
+  return num < Number.POSITIVE_INFINITY;
+});
+
 Handlebars.registerHelper('json', function(obj) {
   return JSON.stringify(obj, null, "  ");
 });

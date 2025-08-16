@@ -157,6 +157,24 @@ export async function _prepareTechniqueData(technique) {
         ui.notifications.error("TECHNIQUE.CORESCRIPT.Error", { localize: false });
     }
 
+    // Process skills
+    let skillSP = 0;
+    for (const skill in technique.system.skills) {
+        skillSP += 
+            technique.system.skills[skill].system.sp.base +
+            ((technique.system.skills[skill].system.level.value-1) * technique.system.skills[skill].system.sp.levelUp);
+    }
+    technique.system.skillSP.value = skillSP;
+
+    // Process flaws
+    let flawSP = 0;
+    for (const flaw in technique.system.flaws) {
+        flawSP += 
+            technique.system.flaws[flaw].system.sp.base +
+            ((technique.system.flaws[flaw].system.level.value-1) * technique.system.flaws[flaw].system.sp.levelUp);
+    }
+    technique.system.flawSP.value = flawSP;
+    
     //process modifiers
     let effectiveModLevel = 0;
     for (const mod in technique.system.mods) {
@@ -205,24 +223,6 @@ export async function _prepareTechniqueData(technique) {
         technique.system.text.crunch.formatStrings = Object.assign({}, technique.system.text.crunch.formatStrings, technique.system.limits[limit].flags.valor?.formatStrings ?? {});
         //console.log(limits[limit]);
     }
-
-    // Process skills
-    let skillSP = 0;
-    for (const skill in technique.system.skills) {
-        skillSP += 
-            technique.system.skills[skill].system.sp.base +
-            ((technique.system.skills[skill].system.level.value-1) * technique.system.skills[skill].system.sp.levelUp);
-    }
-    technique.system.skillSP.value = skillSP;
-
-    // Process flaws
-    let flawSP = 0;
-    for (const flaw in technique.system.flaws) {
-        flawSP += 
-            technique.system.flaws[flaw].system.sp.base +
-            ((technique.system.flaws[flaw].system.level.value-1) * technique.system.flaws[flaw].system.sp.levelUp);
-    }
-    technique.system.flawSP.value = flawSP;
 
     technique.system.cost.stamina.limitReduction = costReduction;
 

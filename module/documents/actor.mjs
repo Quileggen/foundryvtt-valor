@@ -340,7 +340,7 @@ export class valorActor extends Actor {
    * @param characterType
    */
   calculateZoneOfControl(actor, characterType) {
-    actor.system.misc.zoneOfControl.value += characterType.baseZoneOfControl;
+    actor.system.misc.zoneOfControl.value += (characterType.baseZoneOfControl - 1);
   }
 
   /**
@@ -349,7 +349,7 @@ export class valorActor extends Actor {
    * @param characterType
    */
   calculateSize(actor, characterType) {
-    actor.system.misc.size.value += characterType.baseSize;
+    actor.system.misc.size.value += (characterType.baseSize - 1);
   }
 
   /**

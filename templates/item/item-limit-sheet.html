@@ -70,6 +70,23 @@
                     </div>
                 </div>
             </div>
+
+            <div class="resource-content flexrow flex-group flex-between stacked command">
+                <label class="resource-label">Prep Script: </label>
+                <textarea name="system.scripts.prepScript">{{system.scripts.prepScript}}</textarea>
+            </div>
+            <div class="resource-content flexrow flex-group flex-between stacked command">
+                <label class="resource-label">Template (effect): </label>
+                <textarea name="system.text.template.effect">{{system.text.template.effect}}</textarea>
+            </div>
+            <div class="resource-content flexrow flex-group flex-between stacked command">
+                <label class="resource-label">Template (special): </label>
+                <textarea name="system.text.template.special">{{system.text.template.special}}</textarea>
+            </div>
+            <div class="resource-content flexrow flex-group flex-between stacked command">
+                <label class="resource-label">Flags: </label>
+                <textarea class="flag-field" name="flags.valor">{{json flags.valor}}</textarea>
+            </div>
         </div>
 
 

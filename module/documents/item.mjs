@@ -83,6 +83,11 @@ export class valorItem extends Item {
       if (text.flavor.user) {content = content.concat("<br><br>", text.flavor.user);}
       else {content = content.concat("<br><br>", text.flavor.default);}
 
+      // If item has uses, use one
+      if (item.system.uses.value > 0) {
+        item.update({system: {uses: {value: item.system.uses.value - 1}}});
+      }
+
       // Subtract costs from technique's actor
       item.actor.update({
         system: {

@@ -29,6 +29,13 @@
           </div>
           <a class="item-control item-edit" title="Edit Item"><h4>{{item.name}}</h4></a>
         </div>
+        {{#if (isLimited item.system.uses.max)}}
+        <div class="item-uses flexrow">
+          <label for="item.system.uses.value" class="resource-label flexlarge align-right" data-label="Uses">Uses: </label>
+          &nbsp;{{item.system.uses.value}} / {{item.system.uses.max}}
+        </div>
+        {{/if}}
+
         <div class="item-controls">
           <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
           <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>

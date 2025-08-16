@@ -59,6 +59,14 @@
             <label for="system.attribute.opposedRoll" class="resource-label rollable flexlarge align-left" data-label="Opposed">Opposed Roll: </label>
             {{system.attribute.opposedRoll}}
           </div>
+          {{#if (isLimited system.uses.max)}}
+          <div class="resource flexrow flex-group-center season4 text-border1">
+            <label for="system.uses.value" class="resource-label rollable flexlarge align-left" data-label="Uses">Uses: </label>
+            <input type="text" name="system.uses.value" value="{{system.uses.value}}" data-dtype="Number"/>
+            <span>/</span>
+            {{system.uses.max}}
+          </div>
+          {{/if}}
         </div>
 
         <div class="item-list-container season1 text-border1" style="--columns: 2;">
