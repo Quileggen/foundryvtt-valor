@@ -70,7 +70,7 @@
   "socket": true,
   "url": "https://github.com/Quileggen/foundryvtt-valor",
   "manifest": "https://raw.githubusercontent.com/Quileggen/foundryvtt-valor/refs/heads/master/system.json",
-  "download": "",
+  "download": "https://github.com/Quileggen/foundryvtt-valor/releases/latest",
   "changelog": "",
   "license": "https://github.com/Quileggen/foundryvtt-valor/blob/master/LICENSE.txt"
 }
