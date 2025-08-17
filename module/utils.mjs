@@ -98,11 +98,6 @@ export function onTechOptDelete(_id, technique) {
  * @param {string} flagString
  */
 export function onFlagFieldChange(item, flagString) {
-
-    console.log("Flags Changed");
-    console.log(item);
-    console.log(flagString);
-    console.log(JSON.parse(flagString));
     const flagJson = JSON.parse(flagString);
     for (const key in flagJson) {
         item.setFlag('valor', key, flagJson[key]);

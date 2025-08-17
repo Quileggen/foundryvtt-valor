@@ -256,6 +256,3 @@ export async function _prepareTechniqueData(technique) {
         technique.sheet.render(true);
     }
 }
-
-
-
