@@ -2,7 +2,7 @@
   "id": "valor",
   "title": "Valor",
   "description": "The Valor system for FoundryVTT!",
-  "version": "1.0.1",
+  "version": "1.2.2",
   "manifestPlusVersion": "1.2.1",
   "compatibility": {
     "minimum": 11,
@@ -19,6 +19,12 @@
       "name": "Gabe Williams",
       "url": "",
       "discord": "TheRedWizard\n#0365",
+      "flags": {}
+    },
+    {
+      "name": "Quileggen",
+      "url": "",
+      "discord": "Quileggen",
       "flags": {}
     }
   ],
@@ -62,9 +68,9 @@
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "stamina",
   "socket": true,
-  "url": "https://tcx0lt0x.github.io/valor/",
-  "manifest": "https://raw.githubusercontent.com/TCX0Lt0X/valor/master/system.json",
+  "url": "https://github.com/Quileggen/foundryvtt-valor",
+  "manifest": "https://raw.githubusercontent.com/Quileggen/foundryvtt-valor/refs/heads/master/system.json",
   "download": "",
   "changelog": "",
-  "license": "https://github.com/TCX0Lt0X/valor/blob/master/LICENSE.txt"
+  "license": "https://github.com/Quileggen/foundryvtt-valor/blob/master/LICENSE.txt"
 }
