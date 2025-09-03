@@ -11,6 +11,7 @@ There are fields open to players that run arbitrary scripts. If you do not trust
 Tips and Tricks:
 * Clicking on the icon for a skill or flaw will output the text of it in chat. Clicking the icon of a technique will do the same and also roll the associated active attribute (including any roll bonuses)
 * Shift+Clicking on the icon of a technique with attached skills or flaws will automatically create temporary versions of those skills and flaws on any actors that are targeted. As of now, this only applies to actors you have ownership over, so GMs will be the main beneficiaries, but everyone can apply boosts to themselves
+* Hovering over the "Base" label for attributes displays a tooltip with `points used / max points`
 
 Known Issues:
 * Balanced Fighter is a little bit jank, if the effects aren't being properly applied, turn them off and on again until they look right

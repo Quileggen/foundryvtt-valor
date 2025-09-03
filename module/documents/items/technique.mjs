@@ -140,7 +140,7 @@ export async function _prepareTechniqueData(technique) {
     const bonusFn = new Function("isleastGM", "technique", "attribute", "attack", "return ".concat(core.system.scripts.bonusFormula));
     let bonus = 0;
     try {
-        bonus = bonusFn.call(this, leastGM, technique, technique.parent.system.attribute[technique.system.attribute.effect].value ?? 0, technique.parent.system.statistic.attack[technique.system.attribute.effect].value ?? 0);
+        bonus = bonusFn.call(this, leastGM, technique, technique.parent.system.attribute[technique.system.attribute.effect].value ?? 0, technique.parent.system.statistic.attack[technique.system.attribute.effect]?.value ?? 0);
     } catch(err) {
         console.log(err);
         ui.notifications.error("CORE.BONUSFORMULA.Error", { localize: false });
