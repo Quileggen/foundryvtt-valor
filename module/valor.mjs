@@ -2,6 +2,7 @@
 import { valorActor } from "./documents/actor.mjs";
 import { valorItem } from "./documents/item.mjs";
 import { valorActiveEffect } from "./documents/activeEffect.mjs";
+import { valorToken } from "./documents/token.mjs";
 // Import sheet classes.
 import { valorActorSheet } from "./sheets/actor-sheet.mjs";
 import { valorItemSheet } from "./sheets/item-sheet.mjs";
@@ -42,6 +43,7 @@ Hooks.once('init', async function() {
   // Define custom Document classes
   CONFIG.Actor.documentClass = valorActor;
   CONFIG.Item.documentClass = valorItem;
+  CONFIG.Token.documentClass = valorToken;
   CONFIG.ActiveEffect.documentClass = valorActiveEffect;
   
   // v13 implements Application2 api

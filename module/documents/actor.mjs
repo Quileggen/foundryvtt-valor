@@ -89,6 +89,8 @@ export class valorActor extends Actor {
       Technique._prepareTechniqueData(item);
     }
     actor.calculateTechniquePoints(actor, characterType);
+
+    // actor.calculateBars(actor);
   }
 
   /**
@@ -136,6 +138,9 @@ export class valorActor extends Actor {
     actor.system.statistic.move.value = 0;
     actor.system.statistic.initiative.value = 0;
     actor.system.statistic.damageIncrement.value = 0;
+    // actor.system.misc.healthBar.max = 0;
+    // actor.system.misc.staminaBar.max = 0;
+    // actor.system.misc.valorBar.max = 0;
   }
 
   /**
@@ -399,6 +404,41 @@ export class valorActor extends Actor {
     actor.system.statistic.health.increment.value = Math.ceil(actor.system.statistic.health.max.value / 5);
     actor.system.statistic.health.critical.value = (actor.system.statistic.health.increment.value * 2) - 1;
     actor.system.statistic.stamina.increment.value = Math.ceil(actor.system.statistic.stamina.max.value / 5);
+  }
+
+  /**
+   * Override modifyTokenAttribute in order to properly update health/stamina/valor from token bars
+   */
+  async modifyTokenAttribute(attribute, value, isDelta, isBar) {
+    const statistic = this.system.statistic;
+    let updates = {};
+    switch (attribute) {
+      case "statistic.health":
+        if (isDelta) {
+          updates = {"system.statistic.health.value": statistic.health.value + value}
+        } else {
+          updates = {"system.statistic.health.value": value}
+        }
+        break;
+      case "statistic.stamina":
+        if (isDelta) {
+          updates = {"system.statistic.stamina.value": statistic.stamina.value + value}
+        } else {
+          updates = {"system.statistic.stamina.value": value}
+        }
+        break;
+      case "statistic.valor":
+        if (isDelta) {
+          updates = {"system.statistic.valor.value": statistic.valor.value + value}
+        } else {
+          updates = {"system.statistic.valor.value": value}
+        }
+        break;
+      default:
+        return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+    }
+    await this.update(updates);
+    return this;
   }
 
   /**
