@@ -274,7 +274,11 @@
       <div>
         <div class="resource">
           <div class="valor season2 light background">
-            <i>{{editor system.text.flavor.default target="system.text.flavor.default" rollData=rollData button=true owner=owner editable=editable}}</i>
+            {{#if system.text.flavor.user}}
+              <i>{{editor system.text.flavor.user target="system.text.flavor.user" rollData=rollData button=true owner=owner editable=editable}}</i>
+            {{else}}
+              <i>{{editor system.text.flavor.default target="system.text.flavor.user" rollData=rollData button=true owner=owner editable=editable}}</i>
+            {{/if}}
           </div>
 
           <br>

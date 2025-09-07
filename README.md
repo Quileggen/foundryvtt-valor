@@ -17,4 +17,3 @@ Known Issues:
 - There is not a built-in way to change character types (to flunkie, soldier, etc.). The best current workaround is to create an effect on the actor that overrides system.misc.type.value with the desired type. Note that the system spells flunkie with an 'ie' instead of a 'y'
 - Number fields cannot be modified relatively, so inputting '-5' to the health field of the character sheet will set health to -5 instead of subtracting 5. This can be bypassed by using token bars for relative modifications
 - Shift-clicking to apply skills/flaws still incurs costs of using a technique
-- Changes to technique descriptions are not saved
