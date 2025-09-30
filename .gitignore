@@ -1,4 +1,14 @@
-node_modules
+# IDE
+.idea/
+.vs/
+.vscode
+
+# Node Modules
+node_modules/
+npm-debug.log
 package-lock.json
+
+# Foundry
+*.lock
 packs/flaws-and-skills/LOCK
 packs/techniques/LOCK
