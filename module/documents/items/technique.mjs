@@ -198,7 +198,7 @@ export async function _prepareTechniqueData(technique) {
         technique.system.text.crunch.formatStrings = Object.assign({}, technique.system.text.crunch.formatStrings, technique.system.mods[mod].flags.valor?.formatStrings ?? {});
 
     }
-    technique.system.level.effectiveModLevel = effectiveModLevel;
+    technique.system.level.effectiveModLevel = Math.max(Math.ceil(effectiveModLevel), 0);
 
     //process limits
     let costReduction = 0;

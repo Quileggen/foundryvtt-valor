@@ -2,7 +2,7 @@
   "id": "valor",
   "title": "Valor",
   "description": "The Valor system for FoundryVTT!",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "compatibility": {
     "minimum": 11,
     "verified": "13.348"

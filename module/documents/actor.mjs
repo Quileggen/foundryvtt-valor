@@ -233,6 +233,12 @@ export class valorActor extends Actor {
     techniquePoints = Math.ceil(characterType.multiplierTechniquePoints * techniquePoints);
 
     actor.system.misc.techniquePoints.total.value += techniquePoints;
+    
+    let reservedPoints = 0;
+    for (let i = 1; i <= actor.system.misc.ultimateTechniques.value; i++) {
+      reservedPoints += i * 5 + 3;
+    }
+    actor.system.misc.techniquePoints.spent.value -= reservedPoints;
   }
 
   /**

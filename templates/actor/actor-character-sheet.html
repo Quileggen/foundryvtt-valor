@@ -285,11 +285,21 @@
 
     {{!-- Biography Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
-      {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's roll data to the rollData property. --}}
+      <!-- {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's roll data to the rollData property. --}} -->
       {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+
+      <label for="characterType">Character Type:</label>
+      <select name="characterType" id="characterType" class="charTypeSelect">
+        <option value="{{system.misc.type.value}}">{{capitalize system.misc.type.value}}</option>
+        <option value="flunkie">Flunkie</option>
+        <option value="soldier">Soldier</option>
+        <option value="elite">Elite (PC)</option>
+        <option value="swarm">Swarm</option>
+        <option value="master">Master</option>
+        <option value="summon">Summon</option>
+      </select>
     </div>
 
-     
 
   </section>
 </form>

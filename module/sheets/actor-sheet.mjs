@@ -128,6 +128,12 @@ export class valorActorSheet extends ActorSheet {
       }
     }));
 
+    //changes character type to a new value
+    html.find(".charTypeSelect").on('change', ev => {
+      console.log(ev);
+      this.actor.update({system: {misc: {type: {value: ev.target.value}}}});
+    });
+
     // Render the item sheet for viewing/editing prior to the editable check.
     html.find('.item-edit').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
